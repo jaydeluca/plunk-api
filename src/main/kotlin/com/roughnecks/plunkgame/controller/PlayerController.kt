@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.RequestBody
 import javax.validation.Valid
-import org.springframework.web.bind.annotation.PostMapping
 
 
-
+@CrossOrigin(maxAge = 3600)
 @RestController
 class PlayerController {
 
@@ -19,15 +17,12 @@ class PlayerController {
     private val playerRepository: PlayerRepository? = null
 
     @GetMapping("/players")
-    fun getQuestions(pageable: Pageable): Page<Player> {
+    fun getPlayers(pageable: Pageable): Page<Player> {
         return playerRepository!!.findAll(pageable)
     }
 
     @PostMapping("/players")
     fun createPlayer(@Valid @RequestBody player: Player): Player {
-
-        println(player)
-
         return playerRepository!!.save(player)
     }
 
