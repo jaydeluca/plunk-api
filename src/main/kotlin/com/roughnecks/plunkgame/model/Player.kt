@@ -13,10 +13,11 @@ data class Player(
         @JsonIgnore
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name= "team_id")
-        val team: Team ?= null
+        var team: Team?
 
 ) : AuditModel() {
         @Id @GeneratedValue
         val id: Long = 0
 
+        fun isAvailable() = team == null
 }

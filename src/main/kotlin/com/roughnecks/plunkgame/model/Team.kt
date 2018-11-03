@@ -15,5 +15,4 @@ data class Team(
         @OneToMany(mappedBy = "team", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
         val players: List<Player> = emptyList()
 
-
 }
