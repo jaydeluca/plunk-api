@@ -1,19 +1,22 @@
 package com.roughnecks.plunkgame.model
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Table
+import com.fasterxml.jackson.annotation.JsonIgnore
+import javax.persistence.*
 
 @Entity
-@Table(name = "players")
+@Table(name = "player")
 data class Player(
-        @Id @GeneratedValue
-        val id: Int = 0,
         val name: String,
         val wins: Int = 0,
-        val losses: Int = 0
+        val losses: Int = 0,
+
+        @JsonIgnore
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name= "team_id")
+        val team: Team ?= null
 
 ) : AuditModel() {
+        @Id @GeneratedValue
+        val id: Long = 0
 
 }
