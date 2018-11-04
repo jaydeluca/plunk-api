@@ -3,23 +3,16 @@ package com.roughnecks.plunkgame.model
 import javax.persistence.*
 
 @Entity
-@Table(name = "teams")
+@Table(name = "team")
 data class Team(
-        @Id @GeneratedValue
-        val id: Int = 0,
-        val name: String,
-
-
-        @OneToOne(cascade = arrayOf(CascadeType.ALL))
-        @JoinColumn(name = "player_one_id")
-        var playerOne: Player,
-
-
-        @OneToOne(cascade = arrayOf(CascadeType.ALL))
-        @JoinColumn(name = "player_two_id")
-        var playerTwo: Player
-
+        val name: String
 
 ) : AuditModel() {
+
+        @Id @GeneratedValue
+        val id: Int = 0
+
+        @OneToMany(mappedBy = "team", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
+        val players: List<Player> = emptyList()
 
 }

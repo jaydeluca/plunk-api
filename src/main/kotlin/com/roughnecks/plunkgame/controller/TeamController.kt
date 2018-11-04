@@ -1,9 +1,9 @@
 package com.roughnecks.plunkgame.controller
 
-import com.roughnecks.plunkgame.model.NewTeamVM
 import com.roughnecks.plunkgame.model.Team
 import com.roughnecks.plunkgame.repository.PlayerRepository
 import com.roughnecks.plunkgame.repository.TeamRepository
+import com.roughnecks.plunkgame.representations.NewTeamVM
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -26,19 +26,16 @@ class TeamController {
     }
 
     @PostMapping("/teams")
-    fun createTeam(@Valid @RequestBody newTeam: NewTeamVM) : String {
+    fun createTeam(@Valid @RequestBody team: NewTeamVM) : Team {
+        val newTeam = teamRepository!!.save(Team(team.name))
 
-        val playerOne = playerRepository!!.findById(newTeam.playerOneId)
-        val playerTwo = playerRepository!!.findById(newTeam.playerTwoId)
+        team.playerOne.team = newTeam
+        playerRepository!!.save(team.playerOne)
 
-        val team = Team(
-                name = newTeam.name,
-                playerOne = playerOne,
-                playerTwo = playerTwo)
-        teamRepository!!.save(team)
+        team.playerTwo.team = newTeam
+        playerRepository!!.save(team.playerTwo)
 
-
-        return "Failure"
+        return newTeam
     }
 
 }
