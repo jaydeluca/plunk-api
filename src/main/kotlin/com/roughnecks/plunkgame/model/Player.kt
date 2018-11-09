@@ -7,8 +7,6 @@ import javax.persistence.*
 @Table(name = "player")
 data class Player(
         val name: String,
-        val wins: Int = 0,
-        val losses: Int = 0,
 
         @JsonIgnore
         @ManyToOne(fetch = FetchType.LAZY)
