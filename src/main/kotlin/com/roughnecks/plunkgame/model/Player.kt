@@ -18,4 +18,8 @@ data class Player(
         val id: Long = 0
 
         fun isAvailable() = team == null
+
+        @JsonIgnore
+        @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
+        var playerScores: Set<PlayerScore>? = null
 }

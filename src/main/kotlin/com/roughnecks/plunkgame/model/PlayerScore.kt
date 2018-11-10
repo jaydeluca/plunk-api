@@ -24,4 +24,5 @@ data class PlayerScore(
     val id: Long = 0
 
     fun type() = if (value == 1L) "Point" else "Plunk"
+
 }

@@ -1,7 +1,5 @@
 package com.roughnecks.plunkgame.controller
 
-import com.roughnecks.plunkgame.model.Game
-import com.roughnecks.plunkgame.model.PlayerScore
 import com.roughnecks.plunkgame.repository.GameRepository
 import com.roughnecks.plunkgame.repository.PlayerRepository
 import com.roughnecks.plunkgame.repository.PlayerScoreRepository
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.validation.Valid
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -26,15 +23,16 @@ class StatsController {
     private val playerRepository: PlayerRepository? = null
 
     @GetMapping("/stats")
-    fun getStats() : MutableList<StatsVM> {
+    fun getStats() : MutableList<StatsVM>? {
 
         val players = playerRepository!!.findAll()
+        val stats = mutableListOf<StatsVM>()
 
-        val stats: MutableList<StatsVM>
+        players.forEach {
+            stats.add(StatsVM(player = it, scores = it.playerScores))
+        }
 
         return stats
-
-
     }
 
 
