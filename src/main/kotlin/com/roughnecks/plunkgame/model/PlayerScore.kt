@@ -6,6 +6,9 @@ import javax.persistence.*
 @Entity
 @Table(name = "player_score")
 data class PlayerScore(
+        @Id
+        @GeneratedValue
+        val id: Long = 0,
         val value: Long = 0,
 
         @JsonIgnore
@@ -19,10 +22,5 @@ data class PlayerScore(
         var game: Game?
 
 ) : AuditModel() {
-    @Id
-    @GeneratedValue
-    val id: Long = 0
-
     fun type() = if (value == 1L) "Point" else "Plunk"
-
 }

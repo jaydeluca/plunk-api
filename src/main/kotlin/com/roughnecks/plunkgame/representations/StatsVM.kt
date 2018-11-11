@@ -12,22 +12,25 @@ data class StatsVM (
         var scores: Set<PlayerScore>?
         ) {
 
-    fun getPoints() = scores!!.map{ it.value }
-            .filter { it == 1L  }
-            .size
-
-    fun getPlunks() = scores!!.map{ it.value }
-            .filter { it == 3L  }
-            .size
-
-    fun getTotalPoints() = scores!!.map{ it.value }
-            .sum()
-
-    fun getTeam() =  if (player.team !== null) player!!.team!!.name else "None"
-
-    fun getGamesPlayed() = scores!!.map{ it.game!!.id }
+    var gamesPlayed = scores!!.map{ it.game!!.id }
             .distinct()
             .size
 
+    var points = this.scores!!.filter { it.value == 1L  }
+            .size
 
+    var plunks = this.scores!!.filter { it.value == 3L  }
+            .size
+
+    var onePointsPerGame = if (this.gamesPlayed > 0) this.points / this.gamesPlayed else 0
+
+
+    var plunksPerGame = if (this.gamesPlayed > 0) this.plunks / this.gamesPlayed else 0
+
+    var totalPoints = scores!!.map{ it.value }
+            .sum()
+
+    var totalPointsPerGame = if (this.gamesPlayed > 0) this.totalPoints / this.gamesPlayed else 0
+
+    var team =  if (player.team !== null) player.team!!.name else "None"
 }
