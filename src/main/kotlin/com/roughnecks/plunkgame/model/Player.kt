@@ -7,8 +7,6 @@ import javax.persistence.*
 @Table(name = "player")
 data class Player(
         val name: String,
-        val wins: Int = 0,
-        val losses: Int = 0,
 
         @JsonIgnore
         @ManyToOne(fetch = FetchType.LAZY)
@@ -20,4 +18,8 @@ data class Player(
         val id: Long = 0
 
         fun isAvailable() = team == null
+
+        @JsonIgnore
+        @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
+        var playerScores: Set<PlayerScore>? = null
 }
