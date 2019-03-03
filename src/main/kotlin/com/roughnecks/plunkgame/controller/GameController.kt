@@ -7,13 +7,11 @@ import com.roughnecks.plunkgame.repository.PlayerRepository
 import com.roughnecks.plunkgame.repository.PlayerScoreRepository
 import com.roughnecks.plunkgame.representations.NewPlayerScoreVM
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @CrossOrigin(maxAge = 3600)
+@RequestMapping("/api")
 @RestController
 class GameController {
 

@@ -10,6 +10,7 @@ import javax.validation.Valid
 
 
 @CrossOrigin(maxAge = 3600)
+@RequestMapping("/api")
 @RestController
 class PlayerController {
 
